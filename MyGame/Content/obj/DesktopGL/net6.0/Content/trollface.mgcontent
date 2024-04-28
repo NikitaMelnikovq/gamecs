@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>/home/nikita/Programming/game/MyGame/Content/trollface.png</SourceFile>
+  <SourceTime>2024-04-28T11:25:00.279956+05:00</SourceTime>
+  <DestFile>/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/trollface.xnb</DestFile>
+  <DestTime>2024-04-28T11:51:49.3251896+05:00</DestTime>
+  <Importer>TextureImporter</Importer>
+  <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
+  <Processor>TextureProcessor</Processor>
+  <ProcessorTime>2022-07-26T16:44:56+05:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
