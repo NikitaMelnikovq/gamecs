@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 
-namespace YourGameProject.Models
+namespace MyGame.Models
 {
     public class Bullet
     {

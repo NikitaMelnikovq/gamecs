@@ -21,6 +21,10 @@ namespace MyGame
         private TrollfaceView trollfaceView;
         private TrollfaceController trollfaceController;
 
+        private BulletController bulletController;
+        private BulletView bulletView;
+        private Texture2D bulletTexture;
+        private Bullet bulletModel;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,19 +45,25 @@ namespace MyGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Загрузка текстур танка и тролля
+            // Загрузка текстур 
             tankTexture = Content.Load<Texture2D>("tankTexture");
             trollfaceTexture = Content.Load<Texture2D>("trollface");
+            bulletTexture = Content.Load<Texture2D>("BulletTexture");
 
-            // Инициализация моделей, представлений и контроллеров для танка
+            // Инициализация моделей
             tankModel = new TankModel(new Vector2(100, 100), 0f, 2f, new Rectangle(0, 0, tankTexture.Width, tankTexture.Height));
-            tankView = new TankView(tankTexture);
-            tankController = new TankController(tankModel);
-
-            // Инициализация моделей, представлений и контроллеров для тролля
             trollfaceModel = new TrollfaceModel(new Vector2(100, 100), Vector2.Zero, 100f, new Rectangle(0, 0, 800, 600));
+            bulletModel = new Bullet(new Vector2(0, 0), 0f, 5f, new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height));
+
+            // Инициализация представлений
             trollfaceView = new TrollfaceView(trollfaceTexture);
+            tankView = new TankView(tankTexture);
+            bulletView = new BulletView(spriteBatch, bulletTexture);
+            
+            // Инициализация контроллеров 
             trollfaceController = new TrollfaceController(trollfaceModel);
+            tankController = new TankController(tankModel);
+            bulletController = new BulletController(bulletTexture, tankModel.Bounds, 5f);
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,6 +74,7 @@ namespace MyGame
             // Обновление состояния танка и тролля
             tankController.Update(gameTime);
             trollfaceController.Update(gameTime);
+            bulletController.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -77,6 +88,7 @@ namespace MyGame
             // Отрисовка танка и тролля
             tankView.Draw(spriteBatch, tankModel);
             trollfaceView.Draw(spriteBatch, trollfaceModel);
+            bulletView.Draw(bulletController.Bullets);
 
             spriteBatch.End();
 

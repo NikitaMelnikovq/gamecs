@@ -5,9 +5,11 @@
   <Config />
   <SourceFiles>
     <File>/home/nikita/Programming/game/MyGame/Content/tankTexture.png</File>
+    <File>/home/nikita/Programming/game/MyGame/Content/BulletTexture.jpg</File>
     <File>/home/nikita/Programming/game/MyGame/Content/trollface.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>/home/nikita/Programming/game/MyGame/Content/BulletTexture.jpg</SourceFile>
+  <SourceTime>2024-05-14T08:47:40.8335563+05:00</SourceTime>
+  <DestFile>/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/BulletTexture.xnb</DestFile>
+  <DestTime>2024-05-14T08:48:54.7258547+05:00</DestTime>
+  <Importer>TextureImporter</Importer>
+  <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
+  <Processor>TextureProcessor</Processor>
+  <ProcessorTime>2022-07-26T16:44:56+05:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

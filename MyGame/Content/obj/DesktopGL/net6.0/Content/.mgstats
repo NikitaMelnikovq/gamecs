@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/home/nikita/Programming/game/MyGame/Content/BulletTexture.jpg","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/BulletTexture.xnb","TextureProcessor","Texture2DContent",667,1685,0.1100006
 "/home/nikita/Programming/game/MyGame/Content/tankTexture.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/tankTexture.xnb","TextureProcessor","Texture2DContent",2938,10085,0.1111964
 "/home/nikita/Programming/game/MyGame/Content/trollface.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/trollface.xnb","TextureProcessor","Texture2DContent",3490,10085,0.002198
