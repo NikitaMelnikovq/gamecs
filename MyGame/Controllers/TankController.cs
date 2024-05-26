@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MyGame.Models;
+using System;
 
 namespace MyGame.Controllers
 {
@@ -8,11 +9,13 @@ namespace MyGame.Controllers
     {
         private readonly TankModel tankModel;
         private readonly TrollfaceModel trollfaceModel;
+        private readonly BulletController bulletController;
 
-        public TankController(TankModel tankModel, TrollfaceModel trollfaceModel)
+        public TankController(TankModel tankModel, TrollfaceModel trollfaceModel, BulletController bulletController)
         {
             this.tankModel = tankModel;
             this.trollfaceModel = trollfaceModel;
+            this.bulletController = bulletController;
         }
 
         public void Update(GameTime gameTime)
@@ -55,6 +58,17 @@ namespace MyGame.Controllers
 
             if (keyboardState.IsKeyDown(Keys.E))
                 tankModel.Rotation += 0.03f;
+
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                FireBullet();
+            }
+        }
+
+        private void FireBullet()
+        {
+            Vector2 bulletPosition = tankModel.Position + new Vector2((float)Math.Cos(tankModel.Rotation), (float)Math.Sin(tankModel.Rotation)) * (tankModel.Texture.Height / 2);
+            bulletController.FireBullet(bulletPosition, tankModel.Rotation);
         }
     }
 }

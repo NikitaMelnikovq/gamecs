@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using MyGame.Models;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace MyGame.Controllers
 {
@@ -15,8 +16,9 @@ namespace MyGame.Controllers
         private float timeSinceLastTeleport;
         private float timeSinceLastDirectionChange;
         private readonly Random random = new Random();
+        private Game1 game;
         
-        public TrollfaceController(TrollfaceModel model, Vector2 initialPlayerPosition, float escapeSpeed, float maxSpeed, float teleportCooldown, float panicRadius = 50f)
+        public TrollfaceController(TrollfaceModel model, Vector2 initialPlayerPosition, float escapeSpeed, float maxSpeed, float teleportCooldown, Game1 game, float panicRadius = 50f)
         {
             trollfaceModel = model;
             playerPosition = initialPlayerPosition;
@@ -25,6 +27,7 @@ namespace MyGame.Controllers
             this.panicRadius = panicRadius;
             timeNearPlayerAndBorder = 0f;
             timeSinceLastTeleport = 0f;
+            this.game = game;
             timeSinceLastDirectionChange = 0f;
         }
 
@@ -62,6 +65,7 @@ namespace MyGame.Controllers
                     TeleportToCenter();
                     timeSinceLastTeleport = 0f;
                     timeNearPlayerAndBorder = 0f;
+                    game.PlayTeleportSound();
                 }
             }
             else
@@ -100,7 +104,7 @@ namespace MyGame.Controllers
 
         private bool IsNearBoundary(Vector2 position)
         {
-            float boundaryThreshold = 50f; // расстояние от границы для рассмотрения как "рядом"
+            float boundaryThreshold = 25f; // расстояние от границы для рассмотрения как "рядом"
             return position.X < boundaryThreshold ||
                    position.X > GameConstants.ScreenWidth - boundaryThreshold ||
                    position.Y < boundaryThreshold ||

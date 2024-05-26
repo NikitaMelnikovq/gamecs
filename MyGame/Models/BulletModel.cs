@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MyGame.Models
 {
@@ -20,15 +20,19 @@ namespace MyGame.Models
             IsActive = true;
         }
 
-        public void Move()
+        public void Update(GameTime gameTime)
         {
-            Position += new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation)) * Speed;
-        }
+            if (IsActive)
+            {
+                Vector2 direction = new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
+                Position += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        public void Deactivate()
-        {
-            IsActive = false;
+                // Деактивируем снаряд, если он выходит за границы экрана
+                if (Position.X < 0 || Position.X > Bounds.Width || Position.Y < 0 || Position.Y > Bounds.Height)
+                {
+                    IsActive = false;
+                }
+            }
         }
-
     }
 }

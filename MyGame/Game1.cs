@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MyGame.Models;
 using MyGame.Views;
 using MyGame.Controllers;
+using Microsoft.Xna.Framework.Media;
 
 namespace MyGame
 {
@@ -24,7 +25,8 @@ namespace MyGame
         private BulletController bulletController;
         private BulletView bulletView;
         private Texture2D bulletTexture;
-        private Bullet bulletModel;
+
+        private Song teleportSound;
 
         public Game1()
         {
@@ -51,11 +53,11 @@ namespace MyGame
             tankTexture = Content.Load<Texture2D>("tankTexture");
             trollfaceTexture = Content.Load<Texture2D>("trollface");
             bulletTexture = Content.Load<Texture2D>("BulletTexture");
+            teleportSound = Content.Load<Song>("Fart_Meme_Sound");
 
             // Инициализация моделей
             tankModel = new TankModel(new Vector2(100, 100), 0f, tankSpeed, new Rectangle(0, 0, 800, 600), tankTexture);
             trollfaceModel = new TrollfaceModel(new Vector2(300, 300), Vector2.Zero, 100f, new Rectangle(0, 0, 800, 600), trollfaceTexture); // Передаем текстуру тролля
-            bulletModel = new Bullet(new Vector2(0, 0), 0f, 5f, new Rectangle(0, 0, bulletTexture.Width, bulletTexture.Height));
 
             // Инициализация представлений
             trollfaceView = new TrollfaceView(trollfaceTexture);
@@ -63,9 +65,9 @@ namespace MyGame
             bulletView = new BulletView(spriteBatch, bulletTexture);
 
             // Инициализация контроллеров 
-            trollfaceController = new TrollfaceController(trollfaceModel, tankModel.Position, tankSpeed * 2.0f, tankSpeed * 27f, 3f);
-            tankController = new TankController(tankModel, trollfaceModel);
-            bulletController = new BulletController(bulletTexture, tankModel.Bounds, 5f);
+            bulletController = new BulletController(bulletTexture, new Rectangle(0, 0, 800, 600), 300f); // Убедитесь, что скорость пули достаточно высока
+            tankController = new TankController(tankModel, trollfaceModel, bulletController);
+            trollfaceController = new TrollfaceController(trollfaceModel, tankModel.Position, tankSpeed * 2.0f, tankSpeed * 2.7f, 3f, this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,6 +80,7 @@ namespace MyGame
             trollfaceController.Update(gameTime);
             bulletController.Update(gameTime);
             trollfaceController.UpdatePlayerPosition(tankModel.Position);
+
             base.Update(gameTime);
         }
 
@@ -95,6 +98,11 @@ namespace MyGame
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void PlayTeleportSound()
+        {
+            MediaPlayer.Play(teleportSound);
         }
     }
 }
