@@ -19,13 +19,7 @@ namespace MyGame.Views
 
         public void Draw(SpriteBatch spriteBatch, TankModel tankModel)
         {
-            // Вычисляем позицию танка, чтобы он не выходил за границы экрана
-            var clampedPosition = new Vector2(
-                MathHelper.Clamp(tankModel.Position.X, 0, GameConstants.ScreenWidth - texture.Width),
-                MathHelper.Clamp(tankModel.Position.Y, 0, GameConstants.ScreenHeight - texture.Height)
-            );
-
-            spriteBatch.Draw(texture, clampedPosition, sourceRectangle, Color.White, tankModel.Rotation, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, tankModel.Position, sourceRectangle, Color.White, tankModel.Rotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }
 }

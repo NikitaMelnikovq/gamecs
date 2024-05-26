@@ -22,5 +22,6 @@ namespace MyGame.Views
         {
             spriteBatch.Draw(texture, trollfaceModel.Position, sourceRectangle, Color.White, 0f, origin, 1f, SpriteEffects.None, 0f);
         }
+
     }
 }

@@ -7,10 +7,12 @@ namespace MyGame.Controllers
     public class TankController
     {
         private readonly TankModel tankModel;
+        private readonly TrollfaceModel trollfaceModel;
 
-        public TankController(TankModel tankModel)
+        public TankController(TankModel tankModel, TrollfaceModel trollfaceModel)
         {
             this.tankModel = tankModel;
+            this.trollfaceModel = trollfaceModel;
         }
 
         public void Update(GameTime gameTime)
@@ -32,11 +34,20 @@ namespace MyGame.Controllers
             {
                 direction.Normalize();
 
-                var newPosition = tankModel.Position + direction * tankModel.Speed;
-                newPosition.X = MathHelper.Clamp(newPosition.X, 0, 800 - tankModel.Bounds.Width);
-                newPosition.Y = MathHelper.Clamp(newPosition.Y, 0, 600 - tankModel.Bounds.Height);
+                var newPosition = tankModel.Position + direction * tankModel.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                tankModel.Position = newPosition;
+                var tankRect = new Rectangle(newPosition.ToPoint(), new Point(tankModel.Texture.Width, tankModel.Texture.Height));
+                var trollRect = new Rectangle(trollfaceModel.Position.ToPoint(), new Point(trollfaceModel.Texture.Width, trollfaceModel.Texture.Height));
+
+                if (tankRect.Intersects(trollRect))
+                {
+                    // Обработка столкновения (например, остановка танка или отскок)
+                }
+                else
+                {
+                    tankModel.Position = newPosition;
+                    tankModel.CheckBounds(tankModel.Bounds);
+                }
             }
 
             if (keyboardState.IsKeyDown(Keys.Q))
