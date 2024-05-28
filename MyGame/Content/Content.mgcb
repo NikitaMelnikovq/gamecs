@@ -15,7 +15,11 @@
 tankTexture.png
 BulletTexture.jpg
 trollface.png
+ButtonTexture.png
 #begin Fart_Meme_Sound.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /build:Fart_Meme_Sound.mp3
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Fonts/Roboto.spritefont

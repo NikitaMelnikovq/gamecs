@@ -25,7 +25,7 @@ namespace MyGame.Models
 
         public void CheckBounds(Rectangle bounds)
         {
-            Vector2 newPosition = Position;
+            var newPosition = Position;
             newPosition.X = MathHelper.Clamp(newPosition.X, bounds.Left + Texture.Width / 2, bounds.Right - Texture.Width / 2);
             newPosition.Y = MathHelper.Clamp(newPosition.Y, bounds.Top + Texture.Height / 2, bounds.Bottom - Texture.Height / 2);
             Position = newPosition;

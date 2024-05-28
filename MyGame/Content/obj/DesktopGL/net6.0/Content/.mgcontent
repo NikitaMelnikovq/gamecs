@@ -7,9 +7,13 @@
     <File>/home/nikita/Programming/game/MyGame/Content/tankTexture.png</File>
     <File>/home/nikita/Programming/game/MyGame/Content/BulletTexture.jpg</File>
     <File>/home/nikita/Programming/game/MyGame/Content/trollface.png</File>
+    <File>/home/nikita/Programming/game/MyGame/Content/ButtonTexture.png</File>
     <File>/home/nikita/Programming/game/MyGame/Content/Fart_Meme_Sound.mp3</File>
+    <File>/home/nikita/Programming/game/MyGame/Content/Fonts/Roboto.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

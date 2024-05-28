@@ -38,7 +38,7 @@ namespace MyGame.Controllers
 
         public void Update(GameTime gameTime)
         {
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            var elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceLastTeleport += elapsed;
             timeSinceLastDirectionChange += elapsed;
 
@@ -50,12 +50,12 @@ namespace MyGame.Controllers
             }
 
             // Calculate distance to player
-            Vector2 toPlayer = playerPosition - trollfaceModel.Position;
-            float distanceToPlayer = toPlayer.Length();
+            var toPlayer = playerPosition - trollfaceModel.Position;
+            var distanceToPlayer = toPlayer.Length();
 
             // Check if troll is near player and boundary
-            bool isNearPlayer = distanceToPlayer < panicRadius;
-            bool isNearBoundary = IsNearBoundary(trollfaceModel.Position);
+            var isNearPlayer = distanceToPlayer < panicRadius;
+            var isNearBoundary = IsNearBoundary(trollfaceModel.Position);
 
             if (isNearPlayer && isNearBoundary)
             {
@@ -87,8 +87,8 @@ namespace MyGame.Controllers
 
         private void ChangeRandomDirection()
         {
-            float speed = trollfaceModel.MaxSpeed * (float)(random.NextDouble() * 0.5 + 0.5); // Random speed between 0.5x and 1.5x max speed
-            float angle = (float)(random.NextDouble() * Math.PI * 2); // Random angle
+            var speed = trollfaceModel.MaxSpeed * (float)(random.NextDouble() * 0.5 + 0.5); // Random speed between 0.5x and 1.5x max speed
+            var angle = (float)(random.NextDouble() * Math.PI * 2); // Random angle
 
             trollfaceModel.Velocity = new Vector2(
                 (float)Math.Cos(angle),
@@ -98,13 +98,13 @@ namespace MyGame.Controllers
 
         private void TeleportToCenter()
         {
-            Vector2 center = new Vector2(GameConstants.ScreenWidth / 2, GameConstants.ScreenHeight / 2);
+            var center = new Vector2(GameConstants.ScreenWidth / 2, GameConstants.ScreenHeight / 2);
             trollfaceModel.Position = center;
         }
 
         private bool IsNearBoundary(Vector2 position)
         {
-            float boundaryThreshold = 25f; // расстояние от границы для рассмотрения как "рядом"
+            var boundaryThreshold = 25f; // расстояние от границы для рассмотрения как "рядом"
             return position.X < boundaryThreshold ||
                    position.X > GameConstants.ScreenWidth - boundaryThreshold ||
                    position.Y < boundaryThreshold ||

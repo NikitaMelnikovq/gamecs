@@ -29,3 +29,5 @@
 /home/nikita/Programming/game/MyGame/obj/Debug/net6.0/MyGame.sourcelink.json
 /home/nikita/Programming/game/MyGame/bin/Debug/net6.0/Content/Fart_Meme_Sound.ogg
 /home/nikita/Programming/game/MyGame/bin/Debug/net6.0/Content/Fart_Meme_Sound.xnb
+/home/nikita/Programming/game/MyGame/bin/Debug/net6.0/Content/Fonts/Roboto.xnb
+/home/nikita/Programming/game/MyGame/bin/Debug/net6.0/Content/ButtonTexture.xnb

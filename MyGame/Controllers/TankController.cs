@@ -67,7 +67,7 @@ namespace MyGame.Controllers
 
         private void FireBullet()
         {
-            Vector2 bulletPosition = tankModel.Position + new Vector2((float)Math.Cos(tankModel.Rotation), (float)Math.Sin(tankModel.Rotation)) * (tankModel.Texture.Height / 2);
+            var bulletPosition = tankModel.Position + new Vector2((float)Math.Cos(tankModel.Rotation), (float)Math.Sin(tankModel.Rotation)) * (tankModel.Texture.Height / 2);
             bulletController.FireBullet(bulletPosition, tankModel.Rotation);
         }
     }

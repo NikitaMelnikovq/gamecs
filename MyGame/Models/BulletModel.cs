@@ -24,7 +24,7 @@ namespace MyGame.Models
         {
             if (IsActive)
             {
-                Vector2 direction = new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
+                var direction = new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
                 Position += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 // Деактивируем снаряд, если он выходит за границы экрана
