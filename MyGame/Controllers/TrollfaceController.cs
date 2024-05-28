@@ -5,110 +5,68 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MyGame.Controllers
 {
-    public class TrollfaceController
+public class TrollfaceController
     {
         private readonly TrollfaceModel trollfaceModel;
-        private Vector2 playerPosition;
-        private readonly float escapeSpeed;
-        private readonly float teleportCooldown;
-        private readonly float panicRadius;
-        private float timeNearPlayerAndBorder;
-        private float timeSinceLastTeleport;
-        private float timeSinceLastDirectionChange;
-        private readonly Random random = new Random();
+        private readonly TankModel tankModel;
+        private float chaseSpeed;
+        private float fleeSpeed;
+        private float teleportCooldown;
+        private double lastTeleportTime;
         private Game1 game;
-        
-        public TrollfaceController(TrollfaceModel model, Vector2 initialPlayerPosition, float escapeSpeed, float maxSpeed, float teleportCooldown, Game1 game, float panicRadius = 50f)
-        {
-            trollfaceModel = model;
-            playerPosition = initialPlayerPosition;
-            this.escapeSpeed = escapeSpeed;
-            this.teleportCooldown = teleportCooldown;
-            this.panicRadius = panicRadius;
-            timeNearPlayerAndBorder = 0f;
-            timeSinceLastTeleport = 0f;
-            this.game = game;
-            timeSinceLastDirectionChange = 0f;
-        }
 
-        public void UpdatePlayerPosition(Vector2 newPlayerPosition)
+        public TrollfaceController(TrollfaceModel trollfaceModel, TankModel tankModel, float chaseSpeed, float fleeSpeed, float teleportCooldown, Game1 game)
         {
-            playerPosition = newPlayerPosition;
+            this.trollfaceModel = trollfaceModel;
+            this.tankModel = tankModel;
+            this.chaseSpeed = chaseSpeed;
+            this.fleeSpeed = fleeSpeed;
+            this.teleportCooldown = teleportCooldown;
+            this.game = game;
+            lastTeleportTime = 0;
         }
 
         public void Update(GameTime gameTime)
         {
-            var elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            timeSinceLastTeleport += elapsed;
-            timeSinceLastDirectionChange += elapsed;
-
-            // Change direction randomly every few seconds
-            if (timeSinceLastDirectionChange >= 2f)
+            float distance = Vector2.Distance(trollfaceModel.Position, tankModel.Position);
+            if (distance < 100f && gameTime.TotalGameTime.TotalSeconds - lastTeleportTime > teleportCooldown)
             {
-                ChangeRandomDirection();
-                timeSinceLastDirectionChange = 0f;
-            }
-
-            // Calculate distance to player
-            var toPlayer = playerPosition - trollfaceModel.Position;
-            var distanceToPlayer = toPlayer.Length();
-
-            // Check if troll is near player and boundary
-            var isNearPlayer = distanceToPlayer < panicRadius;
-            var isNearBoundary = IsNearBoundary(trollfaceModel.Position);
-
-            if (isNearPlayer && isNearBoundary)
-            {
-                timeNearPlayerAndBorder += elapsed;
-                if (timeNearPlayerAndBorder >= 3f && timeSinceLastTeleport >= teleportCooldown)
-                {
-                    TeleportToCenter();
-                    timeSinceLastTeleport = 0f;
-                    timeNearPlayerAndBorder = 0f;
-                    game.PlayTeleportSound();
-                }
+                Teleport();
+                game.TankModel.Health -= 10; // Уменьшение здоровья танка при телепортации тролля
+                lastTeleportTime = gameTime.TotalGameTime.TotalSeconds;
             }
             else
             {
-                timeNearPlayerAndBorder = 0f;
+                Vector2 direction = Vector2.Zero;
+
+                if (distance < 200f)
+                {
+                    direction = trollfaceModel.Position - tankModel.Position;
+                    direction.Normalize();
+                    trollfaceModel.Position += direction * fleeSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                else if (distance > 300f)
+                {
+                    direction = tankModel.Position - trollfaceModel.Position;
+                    direction.Normalize();
+                    trollfaceModel.Position += direction * chaseSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+
+                trollfaceModel.CheckBounds(); // вызов метода без параметров
             }
-
-            // Escape from player if near
-            if (isNearPlayer)
-            {
-                Vector2 escapeDirection = trollfaceModel.Position - playerPosition;
-                escapeDirection.Normalize();
-                trollfaceModel.Velocity = escapeDirection * escapeSpeed;
-            }
-
-            // Update model position
-            trollfaceModel.Update(gameTime);
         }
 
-        private void ChangeRandomDirection()
+        public void UpdatePlayerPosition(Vector2 newPosition)
         {
-            var speed = trollfaceModel.MaxSpeed * (float)(random.NextDouble() * 0.5 + 0.5); // Random speed between 0.5x and 1.5x max speed
-            var angle = (float)(random.NextDouble() * Math.PI * 2); // Random angle
-
-            trollfaceModel.Velocity = new Vector2(
-                (float)Math.Cos(angle),
-                (float)Math.Sin(angle)
-            ) * speed;
+            // Обновление позиции игрока
         }
 
-        private void TeleportToCenter()
+        private void Teleport()
         {
-            var center = new Vector2(GameConstants.ScreenWidth / 2, GameConstants.ScreenHeight / 2);
-            trollfaceModel.Position = center;
-        }
-
-        private bool IsNearBoundary(Vector2 position)
-        {
-            var boundaryThreshold = 25f; // расстояние от границы для рассмотрения как "рядом"
-            return position.X < boundaryThreshold ||
-                   position.X > GameConstants.ScreenWidth - boundaryThreshold ||
-                   position.Y < boundaryThreshold ||
-                   position.Y > GameConstants.ScreenHeight - boundaryThreshold;
+            var random = new Random();
+            var newPosition = new Vector2(random.Next(0, 800), random.Next(0, 600));
+            trollfaceModel.Position = newPosition;
         }
     }
+
 }

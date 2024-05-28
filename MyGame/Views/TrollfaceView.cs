@@ -5,23 +5,25 @@ using MyGame.Models;
 namespace MyGame.Views
 {
     public class TrollfaceView
+{
+    private Texture2D texture;
+    private SpriteFont font;
+
+    public TrollfaceView(Texture2D texture, SpriteFont font)
     {
-        private Texture2D texture;
-        private Rectangle sourceRectangle;
-        private Vector2 origin;
-
-        public TrollfaceView(Texture2D texture)
-        {
-            this.texture = texture;
-            sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
-        }
-
-        // Метод для отрисовки Trollface
-        public void Draw(SpriteBatch spriteBatch, TrollfaceModel trollfaceModel)
-        {
-            spriteBatch.Draw(texture, trollfaceModel.Position, sourceRectangle, Color.White, 0f, origin, 1f, SpriteEffects.None, 0f);
-        }
-
+        this.texture = texture;
+        this.font = font;
     }
+
+    public void Draw(SpriteBatch spriteBatch, TrollfaceModel model)
+    {
+        spriteBatch.Draw(texture, model.Position, Color.White);
+
+        // Отображение здоровья над головой тролля
+        var healthText = model.Health.ToString();
+        var healthPosition = new Vector2(model.Position.X + texture.Width / 2, model.Position.Y - 20);
+        spriteBatch.DrawString(font, healthText, healthPosition, Color.Red);
+    }
+}
+
 }

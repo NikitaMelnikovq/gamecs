@@ -11,6 +11,8 @@ namespace MyGame.Models
         public Rectangle Bounds { get; }
         public Texture2D Texture { get; } // Добавлено свойство Texture
 
+        public int Health { get; set; }
+
         public TrollfaceModel(Vector2 position, Vector2 velocity, float maxSpeed, Rectangle bounds, Texture2D texture)
         {
             Position = position;
@@ -18,6 +20,7 @@ namespace MyGame.Models
             MaxSpeed = maxSpeed;
             Bounds = bounds;
             Texture = texture;
+            Health = 100;
         }
 
         public void Update(GameTime gameTime)

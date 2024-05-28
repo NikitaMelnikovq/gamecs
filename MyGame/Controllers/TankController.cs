@@ -5,21 +5,25 @@ using System;
 
 namespace MyGame.Controllers
 {
-    public class TankController
+   public class TankController
     {
         private readonly TankModel tankModel;
         private readonly TrollfaceModel trollfaceModel;
         private readonly BulletController bulletController;
+        private double lastFireTime;
 
         public TankController(TankModel tankModel, TrollfaceModel trollfaceModel, BulletController bulletController)
         {
             this.tankModel = tankModel;
             this.trollfaceModel = trollfaceModel;
             this.bulletController = bulletController;
+            lastFireTime = 0;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (tankModel.IsDestroyed) return;
+
             var keyboardState = Keyboard.GetState();
             var direction = Vector2.Zero;
 
@@ -44,7 +48,7 @@ namespace MyGame.Controllers
 
                 if (tankRect.Intersects(trollRect))
                 {
-                    // Обработка столкновения (например, остановка танка или отскок)
+                    tankModel.IsDestroyed = true; // Уничтожение танка при столкновении с троллем
                 }
                 else
                 {
@@ -61,14 +65,19 @@ namespace MyGame.Controllers
 
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                FireBullet();
+                FireBullet(gameTime);
             }
         }
 
-        private void FireBullet()
+        private void FireBullet(GameTime gameTime)
         {
-            var bulletPosition = tankModel.Position + new Vector2((float)Math.Cos(tankModel.Rotation), (float)Math.Sin(tankModel.Rotation)) * (tankModel.Texture.Height / 2);
-            bulletController.FireBullet(bulletPosition, tankModel.Rotation);
+            if (gameTime.TotalGameTime.TotalSeconds - lastFireTime > 0.5)
+            {
+                var bulletPosition = tankModel.Position + new Vector2((float)Math.Cos(tankModel.Rotation), (float)Math.Sin(tankModel.Rotation)) * (tankModel.Texture.Height / 2);
+                bulletController.FireBullet(bulletPosition, tankModel.Rotation);
+                lastFireTime = gameTime.TotalGameTime.TotalSeconds;
+            }
         }
     }
+
 }

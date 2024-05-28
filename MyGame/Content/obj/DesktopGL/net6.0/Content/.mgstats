@@ -3,5 +3,5 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "/home/nikita/Programming/game/MyGame/Content/ButtonTexture.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/ButtonTexture.xnb","TextureProcessor","Texture2DContent",306,80085,0.105389
 "/home/nikita/Programming/game/MyGame/Content/Fart_Meme_Sound.mp3","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/Fart_Meme_Sound.xnb","SongProcessor","SongContent",46530,133,0.1299209
 "/home/nikita/Programming/game/MyGame/Content/Fonts/Roboto.spritefont","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/Fonts/Roboto.xnb","FontDescriptionProcessor","SpriteFontContent",466,37919,0.2120626
-"/home/nikita/Programming/game/MyGame/Content/tankTexture.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/tankTexture.xnb","TextureProcessor","Texture2DContent",2938,10085,0.1111964
+"/home/nikita/Programming/game/MyGame/Content/tankTexture.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/tankTexture.xnb","TextureProcessor","Texture2DContent",2853,10085,0.0945254
 "/home/nikita/Programming/game/MyGame/Content/trollface.png","/home/nikita/Programming/game/MyGame/Content/bin/DesktopGL/Content/trollface.xnb","TextureProcessor","Texture2DContent",3490,10085,0.002198
