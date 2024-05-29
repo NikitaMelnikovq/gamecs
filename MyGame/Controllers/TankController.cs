@@ -48,7 +48,7 @@ namespace MyGame.Controllers
 
                 if (tankRect.Intersects(trollRect))
                 {
-                    tankModel.IsDestroyed = true; // Уничтожение танка при столкновении с троллем
+                    tankModel.IsDestroyed = true; 
                 }
                 else
                 {

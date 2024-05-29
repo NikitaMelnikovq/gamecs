@@ -19,6 +19,8 @@ namespace MyGame.Views
 
         public void Draw(SpriteBatch spriteBatch, TankModel tankModel)
         {
+            if (tankModel.IsDestroyed) return;
+            
             spriteBatch.Draw(texture, tankModel.Position, sourceRectangle, Color.White, tankModel.Rotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }

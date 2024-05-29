@@ -4,7 +4,7 @@ using MyGame.Interfaces;
 
 namespace MyGame.Models
 {
-   public class TankModel : IBoundable
+    public class TankModel : IBoundable
     {
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
@@ -14,7 +14,6 @@ namespace MyGame.Models
         public Texture2D Texture { get; set; }
         public int Health { get; set; }
         
-
         public TankModel(Vector2 position, float rotation, float speed, Rectangle bounds, Texture2D texture)
         {
             Position = position;
